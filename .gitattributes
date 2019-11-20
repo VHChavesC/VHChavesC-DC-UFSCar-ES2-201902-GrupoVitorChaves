@@ -1,13 +1,10 @@
 # unix  line endings at unix files
-gradlew text eol=lf
-*.sh text eol=lf
-*.bat text eol=crlf
-
-AUTHORS text eol=lf
+gradlew eol=lf
+*.sh eol=lf
 
 # ensure that line endings of *.java and *.properties are normalized
 *.properties text
 *.java text
 
-# disable after a release
-# CHANGELOG.md merge=union
+# ensure that CHANGELOG entries are merged instead of causing conflicts
+CHANGELOG.md merge=union

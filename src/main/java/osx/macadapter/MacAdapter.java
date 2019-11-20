@@ -1,23 +1,28 @@
-package osx.macadapter;
+package osx.macadapter;/*  Copyright (C) 2015 JabRef contributors.
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
 
-import java.io.File;
-import java.util.List;
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-import org.jabref.gui.JabRefFrame;
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
 
-import com.apple.eawt.AboutHandler;
-import com.apple.eawt.AppEvent;
+import com.apple.eawt.*;
 import com.apple.eawt.AppEvent.AboutEvent;
 import com.apple.eawt.AppEvent.OpenFilesEvent;
 import com.apple.eawt.AppEvent.PreferencesEvent;
 import com.apple.eawt.AppEvent.QuitEvent;
-import com.apple.eawt.AppReOpenedListener;
-import com.apple.eawt.Application;
-import com.apple.eawt.FullScreenUtilities;
-import com.apple.eawt.OpenFilesHandler;
-import com.apple.eawt.PreferencesHandler;
-import com.apple.eawt.QuitHandler;
-import com.apple.eawt.QuitResponse;
+import net.sf.jabref.gui.JabRefFrame;
+
+import java.io.File;
+import java.util.List;
 
 public class MacAdapter implements PreferencesHandler, AboutHandler, QuitHandler, OpenFilesHandler, AppReOpenedListener {
 
@@ -75,7 +80,7 @@ public class MacAdapter implements PreferencesHandler, AboutHandler, QuitHandler
             return;
         }
 
-        parentFrame.showPreferencesDialog();
+        parentFrame.preferences();
     }
 
     @Override
