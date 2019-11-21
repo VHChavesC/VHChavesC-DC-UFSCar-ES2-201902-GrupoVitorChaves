@@ -391,7 +391,7 @@ public class BibEntryWriterTest {
         StringWriter stringWriter = new StringWriter();
 
         BibEntry entry = new BibEntry("1234", "article");
-        entry.setField("note", "        some note    \t");
+        entry.setField("note", "   some note \t");
 
         writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
 
@@ -400,6 +400,25 @@ public class BibEntryWriterTest {
         String expected = Globals.NEWLINE + "@Article{," + Globals.NEWLINE +
                 "  note = {some note}," + Globals.NEWLINE +
                 "}" + Globals.NEWLINE;
+
+        assertEquals(expected, actual);
+    }
+
+    /*A partir daqui, serão inseridos os casos de teste*/
+    @Test
+    public void insertBook() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+
+        BibEntry entry = new BibEntry("211119", "book");
+        entry.setField("nota", "        uma nota    \t");
+
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+
+        String actual = stringWriter.toString();
+
+        String expected = Globals.NEWLINE + "@Book{," + Globals.NEWLINE + "  nota = { uma nota }," + Globals.NEWLINE
+                + "}"
+                + Globals.NEWLINE;
 
         assertEquals(expected, actual);
     }
