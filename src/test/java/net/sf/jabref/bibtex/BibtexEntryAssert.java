@@ -18,6 +18,7 @@ import net.sf.jabref.importer.fileformat.ImportFormat;
 import net.sf.jabref.model.entry.BibEntry;
 import net.sf.jabref.model.entry.CanonicalBibtexEntry;
 
+
 public class BibtexEntryAssert {
 
     /**

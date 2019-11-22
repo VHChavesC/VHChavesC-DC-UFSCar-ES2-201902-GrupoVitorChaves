@@ -21,6 +21,8 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
+//Java program generate a random AlphaNumeric String
+//using Math.random() method
 public class BibEntryWriterTest {
 
     private BibEntryWriter writer;
@@ -441,4 +443,31 @@ public class BibEntryWriterTest {
 
         assertEquals(expected, actual);
     }
+
+        /*Ainda na estratégia de teste baseada em valores limites, este caso de teste fará a verificação para o limite
+     * superior das cadeias de caracteres, para avaliar o comportamento do programa em caso de preenchimento com
+     * cadeias massivas de caracteres, testando com o maior comprimento possível de string, 2^31 -1 caracteres.*/
+    @Test
+    public void insertMassiveBook() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+
+        int n = Integer.MAX_VALUE;
+
+        // Get and display the alphanumeric string
+        String s1 = new String(RandomString.getAlphaNumericString(n));
+
+        BibEntry entry = new BibEntry("211119", "book");
+        entry.setField(s1, s1 + "\t");
+
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+
+        String actual = stringWriter.toString();
+
+        String expected = Globals.NEWLINE + "@Book{," + Globals.NEWLINE + s1 + " = {" + s1 + "}," + Globals.NEWLINE
+                + "}"
+                + Globals.NEWLINE;
+
+        assertEquals(expected, actual);
+    }
+
 }
