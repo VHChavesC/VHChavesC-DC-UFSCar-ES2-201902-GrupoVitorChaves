@@ -422,4 +422,23 @@ public class BibEntryWriterTest {
 
         assertEquals(expected, actual);
     }
+
+    /*A partir da estratégia de teste baseada em valores limites, este caso de teste fará a verificação para o
+     * limite inferior das cadeias de caracteres, para avaliar o comportamento do programa em caso de preenchimento
+     * com cadeias vazias de caracteres.*/
+    @Test
+    public void insertNull() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+
+        BibEntry entry = new BibEntry("");
+        entry.setField("", "");
+
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+
+        String actual = stringWriter.toString();
+
+        String expected = "";
+
+        assertEquals(expected, actual);
+    }
 }
