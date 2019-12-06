@@ -9,6 +9,8 @@ import net.sf.jabref.model.entry.BibEntry;
 import net.sf.jabref.model.entry.FileField;
 import net.sf.jabref.model.entry.ParsedFileField;
 
+import org.apache.logging.log4j.core.util.Integers;
+
 import java.io.File;
 import java.util.*;
 import java.util.function.Predicate;
@@ -273,6 +275,11 @@ public class IntegrityCheck {
 
             if (!CONTAINS_FOUR_DIGIT.test(value.get().trim())) {
                 return Collections.singletonList(new IntegrityMessage(Localization.lang("should contain a four digit number"), entry, "year"));
+            }
+
+            if (Integers.parseInt(value.get().trim()) > 2019) {
+                return Collections.singletonList(new IntegrityMessage(
+                        Localization.lang("should be a year in the present or the past."), entry, "year"));
             }
 
             return Collections.emptyList();
