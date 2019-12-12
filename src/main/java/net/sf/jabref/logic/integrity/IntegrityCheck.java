@@ -296,13 +296,6 @@ public class IntegrityCheck {
                 }
             }
 
-            //char firstLetter;
-
-           //firstLetter = Character.valueOf(value.toString().charAt(0));
-            //firstLetter = Character.toString(value.toString().charAt(0));
-            //firstLetter = value.toString().substring(0, 1);
-
-            //if (((firstLetter < 'a') || (firstLetter > 'z')) && ((firstLetter < 'A') || (firstLetter > 'Z'))) {
             if (!value.isPresent()) {
                 return Collections.singletonList(
                         new IntegrityMessage(Localization.lang("Infelizmente entrou no if"), entry, "bibtexkey"));
