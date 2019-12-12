@@ -291,25 +291,28 @@ public class IntegrityCheck {
 
         @Override
         public List<IntegrityMessage> check(BibEntry entry) {
-            Optional<String> value = entry.getFieldOptional("key");
-
-            int len = value.get().trim().length();
-
-            if (len < 2) {
+            Optional<String> value = entry.getFieldOptional("bibtexkey");
+            if (!value.isPresent()) {
                 return Collections.singletonList(
-                        new IntegrityMessage(Localization.lang("should contain at least two digits"), entry, "key"));
+                        new IntegrityMessage(Localization.lang("Infelizmente entrou no if"), entry, "bibtexkey"));
+            } else {
+                int length = value.get().toString().length();
+                if (length < 2) {
+                    return Collections.singletonList(new IntegrityMessage(
+                            Localization.lang("should contain at least two digits"), entry, "bibtexkey"));
+                }
             }
 
-            char firstLetter;
+            //char firstLetter;
 
            //firstLetter = Character.valueOf(value.toString().charAt(0));
             //firstLetter = Character.toString(value.toString().charAt(0));
             //firstLetter = value.toString().substring(0, 1);
 
             //if (((firstLetter < 'a') || (firstLetter > 'z')) && ((firstLetter < 'A') || (firstLetter > 'Z'))) {
-            if(!Character.isLetter(value.toString().charAt(0))) {
+            if (!Character.isLetter(value.toString().charAt(0))) {
                 return Collections.singletonList(new IntegrityMessage(
-                        Localization.lang("should contain a letter as the first character"), entry, "key"));
+                        Localization.lang("should contain a letter as the first character"), entry, "bibtexkey"));
             }
 
             return Collections.emptyList();
