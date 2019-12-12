@@ -41,13 +41,14 @@ public class CSVImporter extends ImportFormat {
         String[] CamposHeader;
         BufferedReader BufR = new BufferedReader(ImportFormatReader.getReaderDefaultEncoding(in));
         String Linha = BufR.readLine();
+
         if (!(Linha.contains("&1515"))) {
             return false;
         }
 
         CamposHeader = Linha.split("&1515");
 
-        if (CamposHeader[0] != "BibliographyType") {
+        if (!(CamposHeader[0].trim().equals("BibliographyType"))) {
             return false;
         }
 
