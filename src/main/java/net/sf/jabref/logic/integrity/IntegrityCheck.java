@@ -303,11 +303,15 @@ public class IntegrityCheck {
             //firstLetter = value.toString().substring(0, 1);
 
             //if (((firstLetter < 'a') || (firstLetter > 'z')) && ((firstLetter < 'A') || (firstLetter > 'Z'))) {
-            if (!Character.isLetter(value.toString().charAt(0))) {
-                return Collections.singletonList(new IntegrityMessage(
-                        Localization.lang("should contain a letter as the first character"), entry, "bibtexkey"));
+            if (!value.isPresent()) {
+                return Collections.singletonList(
+                        new IntegrityMessage(Localization.lang("Infelizmente entrou no if"), entry, "bibtexkey"));
+            } else {
+                if (!Character.isLetter(value.get().toString().charAt(0))) {
+                    return Collections.singletonList(new IntegrityMessage(
+                            Localization.lang("Should contain a letter as the first character"), entry, "bibtexkey"));
+                }
             }
-
             return Collections.emptyList();
         }
     }
