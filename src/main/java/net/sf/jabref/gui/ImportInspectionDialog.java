@@ -75,8 +75,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
-import net.sf.jabref.exporter.*;
-
 /**
  * Dialog to allow the selection of entries as part of an Import.
  * <p>
@@ -578,7 +576,7 @@ public class ImportInspectionDialog extends JDialog implements ImportInspector, 
         callBacks.add(cb);
     }
 
-    private class OkListener implements ActionListener{
+    private class OkListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent event) {
@@ -608,39 +606,8 @@ public class ImportInspectionDialog extends JDialog implements ImportInspector, 
                         if (cbm.isSelected()) {
                             Globals.prefs.putBoolean(JabRefPreferences.WARN_ABOUT_DUPLICATES_IN_INSPECTION, false);
                         }
-
                         if (answer == JOptionPane.NO_OPTION) {
                             return;
-                        }
-
-                        //Mensagem para criação de novo arquivo
-                        CheckBoxMessage cbm2 = new CheckBoxMessage(
-                                Localization.lang("Gostaria de criar uma nova database com as possíveis duplicatas?"),
-                                Localization.lang("Disable this confirmation dialog"), false);
-                        int answer2 = JOptionPane.showConfirmDialog(ImportInspectionDialog.this, cbm2,
-                                Localization.lang("Criar novo arquivo"), JOptionPane.YES_NO_OPTION);
-                        if (cbm2.isSelected()) {
-                            Globals.prefs.putBoolean(JabRefPreferences.WARN_ABOUT_DUPLICATES_IN_INSPECTION, false);
-                        }
-
-                        //Caso a resposta seja não, continuar
-                        if (answer == JOptionPane.NO_OPTION) {
-                            break;
-                        }
-
-                        //Salva a database atual
-                        SaveDatabaseAction SB = new SaveDatabaseAction(panel);
-                        try {
-                            SB.save();
-                        } catch (Throwable ex) {
-                            LOGGER.warn("Não foi possível salvar a database atual", ex);
-                        }
-                        //Cria uma nova database
-                        JOptionPane.showMessageDialog(frame, "Selecione um arquivo para a nova database");
-                        try {
-                            SB.saveAs();
-                        } catch (Throwable ex) {
-                            LOGGER.warn("Não foi possível criar a nova database", ex);
                         }
                         break;
                     }
