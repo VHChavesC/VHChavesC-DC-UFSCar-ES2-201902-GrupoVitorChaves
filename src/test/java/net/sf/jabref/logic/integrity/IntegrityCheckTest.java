@@ -45,6 +45,9 @@ public class IntegrityCheckTest {
         assertWrong(createContext("year", "abc"));
         assertWrong(createContext("year", "86"));
         assertWrong(createContext("year", "204"));
+        //Testes adicionados para validar a manutenção perfectiva de validação do campo year:
+        assertCorrect(createContext("year", "2019"));
+        assertWrong(createContext("year", "2020"));
     }
 
     @Test
