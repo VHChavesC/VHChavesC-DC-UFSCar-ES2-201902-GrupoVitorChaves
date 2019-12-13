@@ -73,12 +73,14 @@ public class IntegrityCheckTest {
     @Test
     public void testAuthorNameChecks() {
         for (String field : InternalBibtexFields.BIBLATEX_PERSON_NAME_FIELDS) {
-            assertCorrect(createContext(field, ""));
             assertCorrect(createContext(field, "Knuth"));
             assertCorrect(createContext(field, "   Knuth, Donald E. "));
             assertCorrect(createContext(field, "Knuth, Donald E. and Kurt Cobain and A. Einstein"));
             assertCorrect(createContext(field, "Donald E. Knuth and Kurt Cobain and A. Einstein"));
             assertWrong(createContext(field, ", and Kurt Cobain and A. Einstein"));
+            assertWrong(createContext(field, "a eistein"));
+            assertWrong(createContext(field, " 2 eistein"));
+            assertWrong(createContext(field, ""));
             assertWrong(createContext(field, "Donald E. Knuth and Kurt Cobain and ,"));
             assertWrong(createContext(field, "and Kurt Cobain and A. Einstein"));
             assertWrong(createContext(field, "Donald E. Knuth and Kurt Cobain and"));
