@@ -279,16 +279,13 @@ public class IntegrityCheck {
             return Collections.emptyList();
         }
     }
-    
+
     private static class BibTexKeyChecker implements Checker {
 
         @Override
         public List<IntegrityMessage> check(BibEntry entry) {
             Optional<String> value = entry.getFieldOptional("bibtexkey");
-            if (!value.isPresent()) {
-                return Collections.singletonList(
-                        new IntegrityMessage(Localization.lang("Infelizmente entrou no if"), entry, "bibtexkey"));
-            } else {
+            if (value.isPresent()) {
                 int length = value.get().toString().length();
                 if (length < 2) {
                     return Collections.singletonList(new IntegrityMessage(
@@ -303,15 +300,11 @@ public class IntegrityCheck {
             //firstLetter = value.toString().substring(0, 1);
 
             //if (((firstLetter < 'a') || (firstLetter > 'z')) && ((firstLetter < 'A') || (firstLetter > 'Z'))) {
-            if (!value.isPresent()) {
-                return Collections.singletonList(
-                        new IntegrityMessage(Localization.lang("Infelizmente entrou no if"), entry, "bibtexkey"));
-            } else {
+
                 if (!Character.isLetter(value.get().toString().charAt(0))) {
                     return Collections.singletonList(new IntegrityMessage(
                             Localization.lang("Should contain a letter as the first character"), entry, "bibtexkey"));
                 }
-            }
             return Collections.emptyList();
         }
     }
