@@ -168,12 +168,30 @@ public class IntegrityCheck {
                         return Collections.emptyList();
                     }
 
-                    String valueTrimmedAndLowerCase = value.get().trim().toLowerCase();
-                    if (valueTrimmedAndLowerCase.startsWith("and ") || valueTrimmedAndLowerCase.startsWith(",")) {
-                        result.add(new IntegrityMessage(Localization.lang("should start with a name"), entry, field));
-                    } else if (valueTrimmedAndLowerCase.endsWith(" and") || valueTrimmedAndLowerCase.endsWith(",")) {
-                        result.add(new IntegrityMessage(Localization.lang("should end with a name"), entry, field));
+                    String valueTrimmed = value.get().trim();
+                    String valueTrimmedAndLowerCase = valueTrimmed.toLowerCase();
+
+                    if (valueTrimmedAndLowerCase.isEmpty()) {
+                        result.add(new IntegrityMessage(Localization.lang("should start with an upper letter"), entry,
+                                field));
                     }
+                    else {
+                        if (!(Character.isUpperCase(valueTrimmed.charAt(0)))) {
+                        result.add(new IntegrityMessage(Localization.lang("should start with an upper letter"), entry,
+                                field));
+                        }
+                        if (!(Character.isLetter(valueTrimmed.charAt(0)))) {
+                            result.add(new IntegrityMessage(Localization.lang("should start with a letter"), entry,
+                                    field));
+                        }
+                        if (valueTrimmedAndLowerCase.startsWith("and ") || valueTrimmedAndLowerCase.startsWith(",")) {
+                        result.add(new IntegrityMessage(Localization.lang("should start with a name"), entry, field));
+                        } else if (valueTrimmedAndLowerCase.endsWith(" and")
+                                || valueTrimmedAndLowerCase.endsWith(",")) {
+                        result.add(new IntegrityMessage(Localization.lang("should end with a name"), entry, field));
+                        }
+                    }
+
                 }
             }
             return result;
