@@ -636,7 +636,7 @@ public class ImportInspectionDialog extends JDialog implements ImportInspector, 
                             LOGGER.warn("Não foi possível salvar a database atual", ex);
                         }
                         //Cria uma nova database
-                        JOptionPane.showMessageDialog(frame, "Selecione um arquivo para a nova database");
+                        JOptionPane.showMessageDialog(frame, "Selecione um nome de arquivo para a nova database");
                         try {
                             SB.saveAs();
                         } catch (Throwable ex) {
