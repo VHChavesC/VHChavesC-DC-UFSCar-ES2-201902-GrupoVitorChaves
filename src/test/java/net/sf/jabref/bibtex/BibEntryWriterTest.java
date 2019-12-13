@@ -406,7 +406,7 @@ public class BibEntryWriterTest {
         assertEquals(expected, actual);
     }
 
-    /*A partir daqui, serão inseridos os casos de teste*/
+    /////////////////////////////////////////////    CASOS DE TESTE    ////////////////////////////////////////////
     @Test
     public void insertBook() throws IOException {
         StringWriter stringWriter = new StringWriter();
@@ -425,49 +425,58 @@ public class BibEntryWriterTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void insertArticle() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+
+        BibEntry entry = new BibEntry("211119", "article");
+        entry.setField("nota", "        uma nota    \t");
+
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+
+        String actual = stringWriter.toString();
+
+        String expected = Globals.NEWLINE + "@Article{," + Globals.NEWLINE + "  nota = { uma nota }," + Globals.NEWLINE
+                + "}" + Globals.NEWLINE;
+
+        assertEquals(expected, actual);
+    }
+
     /*A partir da estratégia de teste baseada em valores limites, este caso de teste fará a verificação para o
      * limite inferior das cadeias de caracteres, para avaliar o comportamento do programa em caso de preenchimento
      * com cadeias vazias de caracteres.*/
     @Test
-    public void insertNull() throws IOException {
+    public void insertNullArticle() throws IOException {
         StringWriter stringWriter = new StringWriter();
 
-        BibEntry entry = new BibEntry("");
+        BibEntry entry = new BibEntry("", "article");
         entry.setField("", "");
 
         writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
 
         String actual = stringWriter.toString();
 
-        String expected = "";
+        String expected = "\n@Article{,\n}\n";
 
         assertEquals(expected, actual);
     }
 
-        /*Ainda na estratégia de teste baseada em valores limites, este caso de teste fará a verificação para o limite
-     * superior das cadeias de caracteres, para avaliar o comportamento do programa em caso de preenchimento com
-     * cadeias massivas de caracteres, testando com o maior comprimento possível de string, 2^31 -1 caracteres.*/
     @Test
-    public void insertMassiveBook() throws IOException {
+    public void insertNullBook() throws IOException {
         StringWriter stringWriter = new StringWriter();
 
-        int n = Integer.MAX_VALUE;
-
-        // Get and display the alphanumeric string
-        String s1 = new String(RandomString.getAlphaNumericString(n));
-
-        BibEntry entry = new BibEntry("211119", "book");
-        entry.setField(s1, s1 + "\t");
+        BibEntry entry = new BibEntry("", "book");
+        entry.setField("", "");
 
         writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
 
         String actual = stringWriter.toString();
 
-        String expected = Globals.NEWLINE + "@Book{," + Globals.NEWLINE + s1 + " = {" + s1 + "}," + Globals.NEWLINE
-                + "}"
-                + Globals.NEWLINE;
+        String expected = "\n@Book{,\n}\n";
 
         assertEquals(expected, actual);
     }
+
+
 
 }
