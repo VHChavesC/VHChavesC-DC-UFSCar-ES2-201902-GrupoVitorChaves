@@ -319,34 +319,6 @@ public class IntegrityCheck {
         }
     }
     
-    private static class BibTexKeyChecker implements Checker {
-
-        @Override
-        public List<IntegrityMessage> check(BibEntry entry) {
-            Optional<String> value = entry.getFieldOptional("bibtexkey");
-            if (!value.isPresent()) {
-                return Collections.singletonList(
-                        new IntegrityMessage(Localization.lang("Infelizmente entrou no if"), entry, "bibtexkey"));
-            } else {
-                int length = value.get().toString().length();
-                if (length < 2) {
-                    return Collections.singletonList(new IntegrityMessage(
-                            Localization.lang("should contain at least two digits"), entry, "bibtexkey"));
-                }
-            }
-
-            if (!value.isPresent()) {
-                return Collections.singletonList(
-                        new IntegrityMessage(Localization.lang("Infelizmente entrou no if"), entry, "bibtexkey"));
-            } else {
-                if (!Character.isLetter(value.get().toString().charAt(0))) {
-                    return Collections.singletonList(new IntegrityMessage(
-                            Localization.lang("Should contain a letter as the first character"), entry, "bibtexkey"));
-                }
-            }
-            return Collections.emptyList();
-        }
-    }
 
     /**
      * From BibTex manual:
