@@ -55,6 +55,7 @@ public class IntegrityCheck {
         result.addAll(new TypeChecker().check(entry));
         result.addAll(new AbbreviationChecker("journal").check(entry));
         result.addAll(new AbbreviationChecker("booktitle").check(entry));
+        result.addAll(new BibTexKeyChecker().check(entry));
 
         return result;
     }
@@ -275,6 +276,35 @@ public class IntegrityCheck {
                 return Collections.singletonList(new IntegrityMessage(Localization.lang("should contain a four digit number"), entry, "year"));
             }
 
+            return Collections.emptyList();
+        }
+    }
+
+    private static class BibTexKeyChecker implements Checker {
+
+        @Override
+        public List<IntegrityMessage> check(BibEntry entry) {
+            Optional<String> value = entry.getFieldOptional("bibtexkey");
+            if (value.isPresent()) {
+                int length = value.get().toString().length();
+                if (length < 2) {
+                    return Collections.singletonList(new IntegrityMessage(
+                            Localization.lang("should contain at least two digits"), entry, "bibtexkey"));
+                }
+            }
+
+            //char firstLetter;
+
+           //firstLetter = Character.valueOf(value.toString().charAt(0));
+            //firstLetter = Character.toString(value.toString().charAt(0));
+            //firstLetter = value.toString().substring(0, 1);
+
+            //if (((firstLetter < 'a') || (firstLetter > 'z')) && ((firstLetter < 'A') || (firstLetter > 'Z'))) {
+
+                if (!Character.isLetter(value.get().toString().charAt(0))) {
+                    return Collections.singletonList(new IntegrityMessage(
+                            Localization.lang("Should contain a letter as the first character"), entry, "bibtexkey"));
+                }
             return Collections.emptyList();
         }
     }
