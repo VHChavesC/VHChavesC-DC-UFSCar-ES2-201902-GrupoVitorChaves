@@ -278,7 +278,7 @@ public class IntegrityCheck {
                 return Collections.singletonList(new IntegrityMessage(Localization.lang("should contain a four digit number"), entry, "year"));
             }
 
-            if (Integers.parseInt(value.get().trim()) > 2019) {
+            if (Integers.parseInt(value.get().trim()) > Calendar.getInstance().get(Calendar.YEAR)) {
                 return Collections.singletonList(new IntegrityMessage(
                         Localization.lang("should be a year in the present or the past."), entry, "year"));
             }
