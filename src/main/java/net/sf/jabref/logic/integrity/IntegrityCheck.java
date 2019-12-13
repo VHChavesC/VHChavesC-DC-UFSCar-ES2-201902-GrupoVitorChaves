@@ -9,8 +9,6 @@ import net.sf.jabref.model.entry.BibEntry;
 import net.sf.jabref.model.entry.FileField;
 import net.sf.jabref.model.entry.ParsedFileField;
 
-import org.apache.logging.log4j.core.util.Integers;
-
 import java.io.File;
 import java.util.*;
 import java.util.function.Predicate;
@@ -278,11 +276,6 @@ public class IntegrityCheck {
                 return Collections.singletonList(new IntegrityMessage(Localization.lang("should contain a four digit number"), entry, "year"));
             }
 
-            if (Integers.parseInt(value.get().trim()) > Calendar.getInstance().get(Calendar.YEAR)) {
-                return Collections.singletonList(new IntegrityMessage(
-                        Localization.lang("should be a year in the present or the past."), entry, "year"));
-            }
-
             return Collections.emptyList();
         }
     }
@@ -292,10 +285,7 @@ public class IntegrityCheck {
         @Override
         public List<IntegrityMessage> check(BibEntry entry) {
             Optional<String> value = entry.getFieldOptional("bibtexkey");
-            if (!value.isPresent()) {
-                return Collections.singletonList(
-                        new IntegrityMessage(Localization.lang("Infelizmente entrou no if"), entry, "bibtexkey"));
-            } else {
+            if (value.isPresent()) {
                 int length = value.get().toString().length();
                 if (length < 2) {
                     return Collections.singletonList(new IntegrityMessage(
@@ -310,15 +300,14 @@ public class IntegrityCheck {
             //firstLetter = value.toString().substring(0, 1);
 
             //if (((firstLetter < 'a') || (firstLetter > 'z')) && ((firstLetter < 'A') || (firstLetter > 'Z'))) {
-            if (!Character.isLetter(value.toString().charAt(0))) {
-                return Collections.singletonList(new IntegrityMessage(
-                        Localization.lang("should contain a letter as the first character"), entry, "bibtexkey"));
-            }
 
+                if (!Character.isLetter(value.get().toString().charAt(0))) {
+                    return Collections.singletonList(new IntegrityMessage(
+                            Localization.lang("Should contain a letter as the first character"), entry, "bibtexkey"));
+                }
             return Collections.emptyList();
         }
     }
-    
 
     /**
      * From BibTex manual:

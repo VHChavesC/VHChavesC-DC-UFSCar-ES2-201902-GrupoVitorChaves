@@ -51,6 +51,16 @@ public class IntegrityCheckTest {
     }
 
     @Test
+    public void testBibtexkeyChecks() {
+        assertCorrect(createContext("bibtexkey", "Freire2017"));
+        assertCorrect(createContext("bibtexkey", "F2"));
+        assertWrong(createContext("bibtexkey", "F"));
+        assertWrong(createContext("bibtexkey", ""));
+        assertWrong(createContext("bibtexkey", "2"));
+        assertWrong(createContext("bibtexkey", "2017Freire"));
+    }
+
+    @Test
     public void testBracketChecks() {
         assertCorrect(createContext("title", "x"));
         assertCorrect(createContext("title", "{x}"));
